@@ -65,6 +65,6 @@ int main1(string argc, char* argv[]) {
     test_weight2kg();
     test_height2metres();
     test_categorise();
-    return -1; 
+    return 0; 
 
 }
