@@ -14,7 +14,7 @@ double ounces2pounds(int x) //Conversion of ounces to pounds
 
 double stones2pounds(int x) //Conversion of stones to pounds
 {
-    return(x*14);
+    return(x*114);
 }
 
 
@@ -59,7 +59,7 @@ void process_data(char* input_file, char* output_file) //Function to process the
     string person_id;
     double pounds, stones, ounces, feet, inches;
     double kg, m;
-    char cat;
+    int cat;
   // Define the input and output files
     f_in.open(input_file,ios::in);
     f_out.open(output_file,ofstream::out); 
@@ -77,7 +77,7 @@ void process_data(char* input_file, char* output_file) //Function to process the
     f_out.close();
 }
         
-int main(int argc, char *argv[]) 
+int main(int argc, char **argv[]) 
 { 
    //for final out put in text file
   

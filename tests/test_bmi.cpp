@@ -1,4 +1,4 @@
-#include <iostream>
+#include "iostream"
 #include <cmath>
 #include "../bmi.cpp"  
 using namespace std; 
@@ -65,6 +65,6 @@ int main1(string argc, char* argv[]) {
     test_weight2kg();
     test_height2metres();
     test_categorise();
-    return 0; 
+    return -1; 
 
 }
