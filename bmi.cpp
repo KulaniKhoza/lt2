@@ -6,67 +6,81 @@
 
 using namespace std;
 
-int ounces2pounds(int x)
+double ounces2pounds(int x) //Conversion of ounces to pounds
 {
-    return(x*16);
+    return(x/16); //mistake corrected (Was previously x*16).
 }
 
-int stones2pounds(int x)
+
+double stones2pounds(int x) //Conversion of stones to pounds
 {
     return(x*14);
 }
 
-double weight2kg(int stones, int pounds, int ounces)
+
+double weight2kg(int stones, int pounds, int ounces) // conversion of weight using all functions above
+{  
+    double Total = stones2pounds(stones)+ pounds +ounces2pounds(ounces); // Made it simple by creating a new variable Total
+    return Total/ 2.2;
+}
+double(inches2feet(int x)) // New function to convert inches to feet
+
 {
-    return (stones2pounds(stones)+pounds+ounces2pounds(ounces))/2.2;
+    return x/12;
+}
+double height2metres(int feet, int inches) //Conversion of height using two functions above( combination of inches and feet)
+{
+    double Total = inches2feet(inches) + feet; // made simple by creating a new variable Total 
+    return Total/3.28;
 }
 
-double height2metres(int feet, int inches)
-{
-    return(feet/3.82);
-}
 
-char categorise(double kg, double metre)
+char categorise(double kg, double metre) //Function to categorise the BMI
 {
-    double bmi = kg*kg/metre;
-    char cat;
+    double bmi =( (kg ) / (metre * metre)); // fixed error in the formula (was previously kg*kg/metre)
+    char cat; 
+    //Creating categories for different BMI Ranges
     if (bmi<19)
         cat='A';
-    else if (bmi<=26)
+    else if (bmi <25 && bmi >= 19)
         cat='B';
-    else if (bmi<=30)
+    else if (bmi <30    && bmi > 25)
         cat='C';
-    else
+    else if(bmi >=30)
         cat='D';
     return(cat);
 }
 
-void process_data(char* input_file, char* output_file)
+void process_data(char* input_file, char* output_file) //Function to process the data and covert the from the text file variables to a output text file 
 {
     ifstream f_in;
     ofstream f_out;
     string data;
     string person_id;
-    int pounds, stones, ounces, feet, inches;
+    double pounds, stones, ounces, feet, inches;
     double kg, m;
     char cat;
-
+  // Define the input and output files
     f_in.open(input_file,ios::in);
-    f_out.open(output_file,ofstream::out);
-    while (!f_in.eof())
+    f_out.open(output_file,ofstream::out); 
+    //Reading Files
+    while (f_in >> person_id >> stones >> pounds >> ounces >> feet >> inches) //Reading input file, removed redundancy of eoh 
     {
-    	f_in >> person_id >> pounds >> stones >> ounces >> feet >> inches;
-        kg=weight2kg(int(stones),int(pounds),int(ounces));
-        m =height2metres(int(feet),int(inches));
+    
+        kg=weight2kg(stones,pounds,ounces);
+        m =height2metres(feet,inches);
         cat=categorise(kg,m);
 	f_out << person_id << " " << cat << endl;
-    }
+    } 
+    //close files
     f_in.close();
     f_out.close();
 }
         
-int main(int argc, char *argv[])
-{
-    // KJN - Need to check that 3 arguments were supplied upon execution
-    process_data(argv[1], argv[2]);
+int main(int argc, char *argv[]) 
+{ 
+   //for final out put in text file
+  
+    process_data(argv[1], argv[2]); 
+    //for final output in text file, it should be that AB783 is A insted of B.
 }
